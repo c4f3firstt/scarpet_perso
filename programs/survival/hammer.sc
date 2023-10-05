@@ -32,7 +32,7 @@ global_radius = 1;
 global_breakrange = null;
 
 __on_player_right_clicks_block(player, item_tuple, hand, block, face, hitvec) -> (
-	if(global_active && hand == 'mainhand' && item_tuple && item_tuple:0 =='iron_pickaxe' || 'stone_pickaxe',
+	if(global_active && hand == 'mainhand' && item_tuple && item_tuple:0 =='diamond_pickaxe',
 		global_radius = (global_radius + 1)%3;
 		diameter = 2*global_radius+1;
 		display_title(player, 'actionbar', format('y hammer mode '+diameter+'x'+diameter));
@@ -49,7 +49,7 @@ __on_player_clicks_block(player, block, face) -> (
 		global_breakrange = null;
 		
 		item_mainhand = player ~ 'holds';
-		if (!item_mainhand || !(item_mainhand:0 == 'iron_pickaxe' || 'stone_pickaxe'), return());
+		if (!item_mainhand || !(item_mainhand:0 == 'diamond_pickaxe'), return());
 		global_breakrange = __get_block_range(pos(block), face);
 		for(global_breakrange, particle('block '+block(_), _, 100, 0, 0.7))
 	);
@@ -60,7 +60,7 @@ __on_player_breaks_block(player, block) -> (
 	global_breakrange = null;
 	if (global_active && global_radius && block_range,
 		item_mainhand = player ~ 'holds';
-		if(item_mainhand && item_mainhand:0 == 'iron_pickaxe' || 'stone_pickaxe',
+		if(item_mainhand && item_mainhand:0 == 'diamond_pickaxe',
 			for(block_range, harvest(player, _))
 		)
 	)
